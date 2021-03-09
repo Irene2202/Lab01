@@ -18,7 +18,7 @@ public class Parole {
 	}
 	
 	public List<String> getElenco() {
-		Collections.sort(parole);
+		Collections.sort(parole, new OrdineAlfabetico());
 		return parole;
 	}
 	
