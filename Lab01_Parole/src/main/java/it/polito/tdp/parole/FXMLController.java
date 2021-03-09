@@ -28,10 +28,17 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private Button btnCancella;
 
     @FXML
     private Button btnReset;
 
+    /**
+     * Inserisce nuova parola all'elenco e me lo stampa in ordine alfabetico
+     * @param event
+     */
     @FXML
     void doInsert(ActionEvent event) {
     	String parola=txtParola.getText();
@@ -51,10 +58,41 @@ public class FXMLController {
     	
     }
 
+    /**
+     * Svuota l'elenco
+     * @param event
+     */
     @FXML
     void doReset(ActionEvent event) {
     	elenco.reset();
     	txtResult.setText("");
+    }
+    
+    /**
+     * Cancella dall'elenco la parola inserita in txtParola
+     * @param event
+     */
+    @FXML
+    void doCancella(ActionEvent event) {
+    	String parola=txtParola.getText();
+    	if(parola.matches(".*\\d.*")) {
+    		txtResult.setText("Inserisci una parola valida!");
+    		txtParola.setText("");
+    		return;
+    	} else {
+    		boolean fatto=elenco.elimina(parola);
+    		String risultato="";
+    		for(String s:this.elenco.getElenco()) {
+    			risultato=risultato+s+"\n";
+    		}
+    		txtResult.setText(risultato);
+    		txtParola.setText("");    		
+    		if(fatto) {
+    			txtResult.appendText("\nParola eliminata con successo");
+    		} else {
+    			txtResult.appendText("\nParola non presente in elenco");
+    		}
+    	}
     }
 
     @FXML
@@ -62,6 +100,7 @@ public class FXMLController {
         assert txtParola != null : "fx:id=\"txtParola\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert btnCancella != null : "fx:id=\"btnCancella\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Scene.fxml'.";
 
         elenco = new Parole() ;
