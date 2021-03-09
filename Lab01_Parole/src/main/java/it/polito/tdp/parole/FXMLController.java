@@ -34,12 +34,27 @@ public class FXMLController {
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	String parola=txtParola.getText();
+    	if(parola.matches(".*\\d.*")) {
+    		txtResult.setText("Inserire una parola valida!");
+    		txtParola.setText("");
+    		return;
+    	} else {
+    		elenco.addParola(parola);
+    		String risultato="";
+    		for(String s:this.elenco.getElenco()) {
+    			risultato=risultato+s+"\n";
+    		}
+    		txtResult.setText(risultato);
+    		txtParola.setText("");
+    	}
+    	
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	elenco.reset();
+    	txtResult.setText("");
     }
 
     @FXML
