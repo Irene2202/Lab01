@@ -49,7 +49,6 @@ public class FXMLController {
     	if(parola.matches(".*\\d.*")) {
     		txtResult.setText("Inserire una parola valida!");
     		txtParola.setText("");
-    		return;
     	} else {
     		elenco.addParola(parola);
     		String risultato="";
