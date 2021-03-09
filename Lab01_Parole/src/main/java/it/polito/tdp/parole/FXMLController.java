@@ -30,6 +30,9 @@ public class FXMLController {
     private TextArea txtResult;
     
     @FXML
+    private TextArea txtTempi;
+    
+    @FXML
     private Button btnCancella;
 
     @FXML
@@ -41,6 +44,7 @@ public class FXMLController {
      */
     @FXML
     void doInsert(ActionEvent event) {
+    	long tempoIn=System.nanoTime();
     	String parola=txtParola.getText();
     	if(parola.matches(".*\\d.*")) {
     		txtResult.setText("Inserire una parola valida!");
@@ -55,7 +59,8 @@ public class FXMLController {
     		txtResult.setText(risultato);
     		txtParola.setText("");
     	}
-    	
+    	long tempoFin=System.nanoTime()-tempoIn;
+    	txtTempi.setText("Tempo impiegato (in nanosecondi): "+tempoFin);
     }
 
     /**
@@ -64,8 +69,11 @@ public class FXMLController {
      */
     @FXML
     void doReset(ActionEvent event) {
+    	long tempo1=System.nanoTime();
     	elenco.reset();
     	txtResult.setText("");
+    	long tempo2=System.nanoTime()-tempo1;
+    	txtTempi.setText("Tempo impiegato (in nanosecondi): "+tempo2);
     }
     
     /**
@@ -74,6 +82,7 @@ public class FXMLController {
      */
     @FXML
     void doCancella(ActionEvent event) {
+    	long tempo1=System.nanoTime();
     	String parola=txtParola.getText();
     	if(parola.matches(".*\\d.*")) {
     		txtResult.setText("Inserisci una parola valida!");
@@ -93,6 +102,8 @@ public class FXMLController {
     			txtResult.appendText("\nParola non presente in elenco");
     		}
     	}
+    	long tempo2=System.nanoTime()-tempo1;
+    	txtTempi.setText("Tempo impiegato (in nanosecondi): "+tempo2);
     }
 
     @FXML
